@@ -69,7 +69,7 @@ Router.events.on('routeChangeError', () => {
 })
 
 
-const themeContext = {
+export const themeContext = {
   name: 'dark',
   type: [
     'light',
@@ -254,27 +254,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   const handleMobileMenuOpen = (event: any) => {
       setMobileMoreAnchorEl(event.currentTarget);
   };
-
-  function Logo() {
-    if (!darkState) {
-      return (
-      <Link href="/search" passHref>
-        <ButtonBase>
-        <img src='/logo_dark.svg' alt='Logo' height={36} width={94} />
-        </ButtonBase>
-      </Link>
-      );
-    } else {
-    return (
-      <Link href="/search" passHref>
-        <ButtonBase>
-        <img src='/logo.svg' alt='Logo' height={36} width={94}/>
-        </ButtonBase>
-      </Link>
-      );
-    }
-  }
-
 
   const menuId = 'primary-search-account-menu';
 
@@ -528,7 +507,15 @@ function MyApp({ Component, pageProps }: AppProps) {
                     onClose={toggleDrawer('left', false)}>{list('left')}
                     
                 </Drawer>
-                <Logo/>
+                {darkState ? <Link href="/search" passHref>
+                  <ButtonBase>
+                  <img src='/logo.svg' alt='Logo' height={36} width={94}/>
+                  </ButtonBase>
+                </Link> : <Link href="/search" passHref>
+                  <ButtonBase>
+                  <img src='/logo_dark.svg' alt='Logo' height={36} width={94}/>
+                  </ButtonBase>
+                </Link>}
                 <div className={classes.grow} />
                 {/* <div className={classes.sectionDesktop}>
                 <Tooltip title="Language">

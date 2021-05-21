@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React from 'react';
+import React, {useState, useContext} from 'react';
 import {
   Typography,
 } from '@material-ui/core';
@@ -24,6 +24,10 @@ import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Image from 'next/image';
+import ThemeContext from '../../components/Theme';
+import {lightTheme} from '../../components/Theme';
+import {darkTheme} from '../../components/Theme';
 
 
 //Random String Generator
@@ -90,8 +94,12 @@ interface Values {
       label: 'Dara Lind',
     },
     {
-      value: 'Andie Labrador-Retriever',
-      label: 'Andie Labrador-Retriever',
+      value: 'Tali Scott',
+      label: 'Tali Scott',
+    },
+    {
+      value: 'Rik Blakow',
+      label: 'Rik Blakow',
     },
   ];
 
@@ -109,6 +117,7 @@ interface Values {
       label: '2222 2222 2222 9123',
     },
   ];
+
 
     const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -132,20 +141,26 @@ interface Values {
     method: string;
     customer: string;
     payment: string;
+    exp_date: string;
   }
   
 
 
-function Take_a_payment() {
-    
+export default function Take_a_payment() {
+
+    const darkState = useContext(ThemeContext)
+    let theme = lightTheme;
+    theme = darkState ? darkTheme : lightTheme;
+
     const classes = useStyles();
     const [items, setItems] = React.useState<State>({
         currency: '$',
         action: "Capture for Settlement",
         ref: "K9386V",
         method: "Pay with Card",
-        customer: "Andie Labrador-Retriever",
+        customer: "Tali Scott",
         payment: "0000 0000 0000 1234",
+        exp_date: "02/02/2022",
 
       });
     const [name, setName] = React.useState('0.00');
@@ -159,111 +174,7 @@ function Take_a_payment() {
       };
     
 
-    const NewForm = () => (
-        
-        <Formik
-            initialValues={{
-            amount: name,
-            select: items.action,
-            payment: items.method,
-            currency: items.currency,
-            order_ref: items.ref,
-            customer: items.customer,
-            payment_method: items.payment,
-        }}
-        validate={values => {
-            const errors: Partial<Values> = {};
-            if (!values.amount ) {
-            errors.amount = 'Required';
-            } 
-            return errors;
-        }}
-        onSubmit={(values, {setSubmitting}) => {
-            setTimeout(() => {
-            setSubmitting(false);
-            alert(JSON.stringify(values, null, 2));
-            }, 500);
-        }}
-        render={({submitForm, isSubmitting}) => (
-            <Form>
-                    <MuiTextField
-                        type='hidden'
-                        name="amount"
-                        onChange= {handleTextChange}
-                        value= {name}
 
-                    />
-                    <MuiTextField
-                        type="hidden"
-                        name="currency"
-                        value={items.currency}
-                        margin="normal"
-                        onChange= {handleChange('currency')}
-                    />
-                    <MuiTextField
-                        type="hidden"
-                        name="select"
-                        margin="normal"
-                        value= {items.action}
-                        onChange= {handleChange('action')}
-                    />
-                      
-                        <MuiTextField
-                            type='hidden'
-                            name="order_ref"
-                            value= {items.ref}
-                            onChange= {handleChange('ref')}
-                        />
-                    <MuiTextField
-                        type="hidden"
-                        name="payment"
-                        margin="normal"
-                        value= {items.method}
-                        onChange= {handleChange('method')}
-                        InputLabelProps={{
-                        shrink: true,
-                        }}
-                    />
-                    <MuiTextField
-                        type="hidden"
-                        name="customer"
-                        margin="normal"
-                        value= {items.customer}
-                        onChange= {handleChange('customer')}
-                        InputLabelProps={{
-                        shrink: true,
-                        }}
-                    />
-                    <MuiTextField
-                        type="hidden"
-                        name="payment_method"
-                        margin="normal"
-                        value= {items.payment}
-                        onChange= {handleChange('payment')}
-                        InputLabelProps={{
-                        shrink: true,
-                        }}
-                    />
-            {isSubmitting && <LinearProgress />}
-            <br/>
-            <Box margin={1}>
-            <Button
-                variant="contained"
-                color="primary"
-                disabled={isSubmitting}
-                onClick={submitForm}
-            >
-                Run Transaction
-            </Button>
-
-            </Box>
-        </Form>
-        )}
-        >
-        </Formik>
-
-        
-    );
 
 
 
@@ -288,6 +199,30 @@ function Take_a_payment() {
         <Grid container spacing={4} direction='column'  alignItems='center' justify='center' className={classes.root} >
             <Grid item>
             <Typography variant='h3'>Take a Payment</Typography>
+            </Grid>
+            <Grid item>
+              <Card style={{backgroundColor:theme.palette.secondary.main}}>
+                <CardContent>
+                <Grid container spacing={5} direction='column'  alignItems='flex-start' justify='flex-start'>
+                      <Grid item>
+                      {darkState ? <Image src='/../public/visa_logo.svg' alt='Logo' height={40} width={123} /> : <Image src='/../public/visa_logo_white.svg' alt='Logo' height={40} width={123} /> }
+                      </Grid>
+                      <Grid item>
+                        <Typography variant='h4' style={{fontFamily:'"Roboto Mono"'}}>{items.payment}</Typography>
+                      </Grid>
+                      <Grid item>
+                      <Grid container spacing={6} direction='row'  alignItems='flex-start' justify='flex-start'>
+                        <Grid item>
+                        <Typography variant='body2' style={{fontFamily:'"Roboto Mono"'}}>Card Holder: {items.customer} </Typography>
+                        </Grid>
+                        <Grid item>
+                        <Typography variant='body2' style={{fontFamily:'"Roboto Mono"'}}>Expires: {items.exp_date} </Typography>
+                        </Grid>
+                      </Grid>
+                      </Grid>
+                </Grid>
+                </CardContent>
+              </Card>
             </Grid>
             <Grid item>
             <Grid container spacing={5} direction='row' alignItems='flex-start' justify='flex-start' className={classes.root} >
@@ -412,7 +347,132 @@ function Take_a_payment() {
                         </MuiTextField>
                         </Grid>
                         <Grid item>
-                            <NewForm/>
+                            <MuiTextField
+                                type="text"
+                                name="exp_date"
+                                label='Expiration Date'
+                                variant="outlined"
+                                margin="normal"
+                                value= {items.exp_date}
+                                onChange= {handleChange('exp_date')}
+                                InputLabelProps={{
+                                shrink: true,
+                                }}
+                            >
+                        </MuiTextField>
+                        </Grid>
+                        <Grid item>
+                <Formik
+                    initialValues={{
+                    amount: name,
+                    select: items.action,
+                    payment: items.method,
+                    currency: items.currency,
+                    order_ref: items.ref,
+                    customer: items.customer,
+                    payment_method: items.payment,
+                    exp_date: items.exp_date,
+                }}
+                validate={values => {
+                    const errors: Partial<Values> = {};
+                    if (!values.amount ) {
+                    errors.amount = 'Required';
+                    } 
+                    return errors;
+                }}
+                onSubmit={(values, {setSubmitting}) => {
+                    setTimeout(() => {
+                    setSubmitting(false);
+                    alert(JSON.stringify(values, null, 2));
+                    }, 500);
+                }}
+                render={({submitForm, isSubmitting}) => (
+                    <Form>
+                            <MuiTextField
+                                type='hidden'
+                                name="amount"
+                                onChange= {handleTextChange}
+                                value= {name}
+
+                            />
+                            <MuiTextField
+                                type="hidden"
+                                name="currency"
+                                value={items.currency}
+                                margin="normal"
+                                onChange= {handleChange('currency')}
+                            />
+                            <MuiTextField
+                                type="hidden"
+                                name="select"
+                                margin="normal"
+                                value= {items.action}
+                                onChange= {handleChange('action')}
+                            />
+                              
+                                <MuiTextField
+                                    type='hidden'
+                                    name="order_ref"
+                                    value= {items.ref}
+                                    onChange= {handleChange('ref')}
+                                />
+                            <MuiTextField
+                                type="hidden"
+                                name="payment"
+                                margin="normal"
+                                value= {items.method}
+                                onChange= {handleChange('method')}
+                                InputLabelProps={{
+                                shrink: true,
+                                }}
+                            />
+                            <MuiTextField
+                                type="hidden"
+                                name="customer"
+                                margin="normal"
+                                value= {items.customer}
+                                onChange= {handleChange('customer')}
+                                InputLabelProps={{
+                                shrink: true,
+                                }}
+                            />
+                            <MuiTextField
+                                type="hidden"
+                                name="payment_method"
+                                margin="normal"
+                                value= {items.payment}
+                                onChange= {handleChange('payment')}
+                                InputLabelProps={{
+                                shrink: true,
+                                }}
+                            />
+                            <MuiTextField
+                                type="hidden"
+                                name="exp_date"
+                                margin="normal"
+                                value= {items.exp_date}
+                                onChange= {handleChange('exp_date')}
+                                InputLabelProps={{
+                                shrink: true,
+                                }}
+                            />
+                    {isSubmitting && <LinearProgress />}
+                    <br/>
+                    <Box margin={1}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        disabled={isSubmitting}
+                        onClick={submitForm}
+                    >
+                        Run Transaction
+                    </Button>
+
+                    </Box>
+                </Form>
+                )}
+                >
+                </Formik>
                         </Grid>
                         </Grid>
                     
@@ -487,18 +547,4 @@ function Take_a_payment() {
     </React.Fragment> 
 }
 
-{/*In case I want to turn on eCommerce in the future */}
-{/*  
-DIY.getInitialProps = async () => {
-
-  return {
-    products: [
-      {id: "test_product", name: "Talech Starter", price: 25.00, description: "Great for a new business", settlement: "2 Days"} as IProduct,
-      {id: "test_product2", name: "Talech Standard", price: 50.00, description: "Great for an existing business", settlement:'Next Day'} as IProduct,
-      {id: "test_product3", name: "Talech Premium", price: 75.00, description: "Great for an growing business", settlement:'Same Day'} as IProduct,
-    ]
-  }
-}
-
-*/}
-export default Take_a_payment
+// export default Take_a_payment

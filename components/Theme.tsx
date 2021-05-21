@@ -17,13 +17,22 @@ declare module "@material-ui/core/styles/createPalette" {
 
 
 const dark = createMuiTheme({
+  typography: {
+    fontFamily: [
+      'Roboto',
+      '"Roboto Mono"',
+      'Arial',
+      'sans-serif',
+    ].join(','),
+  },
     palette: {
       type: 'dark',
       primary: {
         main: '#FFFFFF',
       },
       secondary: {
-        main: '#6669A8',
+        main: '#C9F7EC',
+        
       },
       error: {
         main: red.A400,
@@ -40,13 +49,21 @@ const dark = createMuiTheme({
   });
 
 const light = createMuiTheme({
+  typography: {
+    fontFamily: [
+      'Roboto',
+      '"Roboto Mono"',
+      'Arial',
+      'sans-serif',
+    ].join(','),
+  },
     palette: {
         type: 'light',
         primary: {
           main: '#004D60',
         },
         secondary: {
-          main: '#6E6E6E',
+          main: '#007079',
         },
         error: {
           main: red.A400,
