@@ -208,15 +208,17 @@ export default function Take_a_payment() {
                       {darkState ? <Image src='/../public/visa_logo.svg' alt='Logo' height={40} width={123} /> : <Image src='/../public/visa_logo_white.svg' alt='Logo' height={40} width={123} /> }
                       </Grid>
                       <Grid item>
-                        <Typography variant='h4' style={{fontFamily:'"Roboto Mono"'}}>{items.payment}</Typography>
+                        <Typography variant='h4' style={{fontFamily:'"Roboto Mono"', fontWeight:300}}>{items.payment}</Typography>
                       </Grid>
                       <Grid item>
-                      <Grid container spacing={6} direction='row'  alignItems='flex-start' justify='flex-start'>
+                      <Grid container spacing={10} direction='row'  alignItems='flex-start'>
                         <Grid item>
-                        <Typography variant='body2' style={{fontFamily:'"Roboto Mono"'}}>Card Holder: {items.customer} </Typography>
+                        <Typography variant='body2' style={{fontFamily:'"Roboto Mono"', fontWeight:500}}>Card Holder: </Typography>
+                        <Typography variant='body2' style={{fontFamily:'"Roboto Mono"'}}>{items.customer} </Typography>
                         </Grid>
                         <Grid item>
-                        <Typography variant='body2' style={{fontFamily:'"Roboto Mono"'}}>Expires: {items.exp_date} </Typography>
+                        <Typography variant='body2' style={{fontFamily:'"Roboto Mono"', fontWeight:500}}>Expires: </Typography>
+                        <Typography variant='body2' style={{fontFamily:'"Roboto Mono"'}}>{items.exp_date} </Typography>
                         </Grid>
                       </Grid>
                       </Grid>
