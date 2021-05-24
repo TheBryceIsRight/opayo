@@ -516,7 +516,7 @@ export default function Take_a_payment() {
                             <ListItemText primary='Customer Name' secondary={items.customer} />
                         </ListItem>
                         <ListItem>
-                            <ListItemText primary='Email' secondary="tossthefrisbee@yahoo.com" />
+                            <ListItemText primary='Email' secondary="exampleEmail@elavon.com" />
                         </ListItem>
                         <ListItem>
                             <ListItemText primary='Email receipt' secondary='Yes' />
