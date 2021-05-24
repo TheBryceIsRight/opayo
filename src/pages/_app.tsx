@@ -305,9 +305,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       </MenuItem>
       </Link>
-
+      <Link href="/settings" passHref >
       <MenuItem>
-        
+
             <ListItemIcon>
               <SettingsIcon/>
             </ListItemIcon>
@@ -318,7 +318,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             </ListItemText>
 
       </MenuItem>
-
+      </Link>
       </Menu>
   );
 
@@ -444,11 +444,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       // onKeyDown={toggleDrawer(anchor, false)}
       >
       <List>
-      <Link href="/" passHref >
+      <Link href="/transactions" passHref >
       <ListItem button>
           <ListItemIcon><StoreIcon/>
           </ListItemIcon>
-          <ListItemText primary='Merchants' />
+          <ListItemText primary='Transactions' />
       </ListItem>
       </Link>
       <Link href="/" passHref >
@@ -464,11 +464,14 @@ function MyApp({ Component, pageProps }: AppProps) {
           </ListItemIcon>
           <ListItemText primary="Reports" />
       </ListItem>
+      <Link href="/settings" passHref >
+
       <ListItem button>
           <ListItemIcon><SettingsIcon/>
           </ListItemIcon>
           <ListItemText primary='Settings' />
       </ListItem>
+      </Link>
       <Divider/>
 
       <ListItem button>
@@ -607,7 +610,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (<React.Fragment>
           <ThemeContext.Provider value={themeContext.switch}>
         <Head>
-          <title>Boost</title>
+          <title>Opayo</title>
           <meta
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width"

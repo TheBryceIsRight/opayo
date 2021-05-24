@@ -5,7 +5,6 @@ import { lightTheme } from '../components/Theme'
 import { ThemeProvider } from '@material-ui/core/styles';
 import ThemeContext from '../components/Theme';
 
-
 // Nivo theming
 const theme1 = {
   axis: {
@@ -78,12 +77,9 @@ class BarChart extends React.Component {
 
   render() {
     const { data, keys, index, groupMode, tickValues, colorBy, customTooltip, layout } = this.props;
-    
     let theme = theme2;
     theme = this.context ? theme2 : theme1;
-
-
-
+    
     return (
       <React.Fragment>
         <ThemeProvider theme={theme}>
@@ -132,32 +128,6 @@ class BarChart extends React.Component {
           motionStiffness={90}
           motionDamping={15}
           tooltip={customTooltip ? customTooltip : null}
-        // legends={[
-        //   {
-        //     dataFrom: "keys",
-        //     anchor: "top-left",
-        //     direction: "row",
-        //     justify: false,
-        //     translateX: -10,
-        //     translateY: -30,
-        //     itemsSpacing: 32,
-        //     itemWidth: 100,
-        //     itemHeight: 20,
-        //     itemDirection: "left-to-right",
-        //     itemOpacity: 0.85,
-        //     itemTextColor: "#919eab",
-        //     symbolSize: 10,
-        //     symbolShape: "circle",
-        //     effects: [
-        //       {
-        //         on: "hover",
-        //         style: {
-        //           itemOpacity: 1
-        //         }
-        //       }
-        //     ]
-        //   }
-        // ]}
         />
         </ThemeProvider>
       </React.Fragment>

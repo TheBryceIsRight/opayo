@@ -28,6 +28,7 @@ import Image from 'next/image';
 import ThemeContext from '../../components/Theme';
 import { lightTheme } from '../../components/Theme';
 import { darkTheme } from '../../components/Theme';
+import * as Yup from 'yup';
 
 
 //Random String Generator
@@ -169,14 +170,16 @@ export default function Take_a_payment() {
         setItems({ ...items, [prop]: event.target.value });
       };
 
-      const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setName(event.target.value);
-      };
+    const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setName(event.target.value);
+    };
     
-
-
-
-
+    const PaymentSchema = Yup.object().shape({
+      payment: Yup.string()
+        .min(2, 'Too Short!')
+        .max(50, 'Too Long!')
+        .required('Required'),
+    });
 
     return <React.Fragment>
       <Head>
@@ -377,13 +380,7 @@ export default function Take_a_payment() {
                     payment_method: items.payment,
                     exp_date: items.exp_date,
                 }}
-                validate={values => {
-                    const errors: Partial<Values> = {};
-                    if (!values.amount ) {
-                    errors.amount = 'Required';
-                    } 
-                    return errors;
-                }}
+                validationSchema={PaymentSchema}
                 onSubmit={(values, {setSubmitting}) => {
                     setTimeout(() => {
                     setSubmitting(false);
