@@ -15,10 +15,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InfoIcon from '@material-ui/icons/Info';
-import useTranslation from '../hooks/useTranslation';
 
 import item from "../public/item"; // import data
-import { Media, MediaContextProvider } from "../utils/media";
 
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -31,7 +29,8 @@ const styles = theme => ({
   },
   containerSmall: {
     margin: "0 auto",
-    height: 200
+    height: 400,
+    width: 750
   },
   container: {
     margin: "0 auto",
@@ -61,20 +60,12 @@ const styles = theme => ({
 
 });
 
-function TranslateDays() {
-  const { t } = useTranslation();
-
-  return [t('sunday'), t('monday'), t('tuesday'), t('wednesday'), t('thursday'), t('friday'), t('saturday')]
-
-}
-
 
 function WeeklySales(props) {
-  const { t } = useTranslation();
     const { classes } = props;
     const { entries } = item;
 
-    const days = TranslateDays(); // x-axis labels
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']; // x-axis labels
 
     const wlbData = []; // hours coded during and outside of work per day
     const codingAtWorkMinutes = []; // minutes coded at work per day
@@ -139,7 +130,7 @@ function WeeklySales(props) {
     // create the message
     let message;
     if (codingAtWorkTotalMinutes > codingOutsideWorkTotalMinutes) {
-      message = t('most_in_person');
+      message = 'Most of your sales were in-person';
     } else {
       message = `Most of your sales were online (${codingOutsideWorkTotalHours} out of ${codingTotalHours} total hours).`;
     }
@@ -148,11 +139,11 @@ function WeeklySales(props) {
     const keys = ["In-person", "Online"];
     const legend = [
       {
-        name: t('in_person'),
+        name: 'In-person',
         color: "#1F77B4"
       },
       {
-        name: t('online'),
+        name: 'Online',
         color: "#FF7F0E"
       }
     ];
@@ -161,10 +152,7 @@ function WeeklySales(props) {
     // const fromDateLabel = moment.unix(parseInt(from, 10)).format("ddd, MMM D");
     // const toDateLabel = moment.unix(parseInt(to, 10)).format("ddd, MMM D");
 
-    return (
-      <React.Fragment>
-        <MediaContextProvider>
-        <Media at='sm'>
+    return (<React.Fragment>
         <Card className={classes.card}>
           <CardHeader
             classes={{
@@ -172,7 +160,7 @@ function WeeklySales(props) {
               subheader: classes.subheader
             }}
             avatar={
-              <Avatar aria-label={t('weekly_sales')} className={classes.avatar}>
+              <Avatar aria-label='Weekly Sales' className={classes.avatar}>
                 <EventAvailableTwoTone color='background.paper' />
               </Avatar>
             }
@@ -181,8 +169,8 @@ function WeeklySales(props) {
                 <MoreVert className={classes.menuIcon} />
               </IconButton>
             }
-            title= {t('weekly_sales')}
-            subheader={t('week_of')}
+            title= 'Weekly Sales'
+            subheader='Week of 5/24/2021'
           />
           <CardContent>
             <div>
@@ -219,122 +207,6 @@ function WeeklySales(props) {
             </div>
           </CardContent>
         </Card>
-        </Media>
-        <Media at='mo'>
-        <Card className={classes.card}>
-          <CardHeader
-            classes={{
-              title: classes.title,
-              subheader: classes.subheader
-            }}
-            avatar={
-              <Avatar aria-label={t('weekly_sales')} className={classes.avatar}>
-                <EventAvailableTwoTone color='background.paper' />
-              </Avatar>
-            }
-            action={
-              <IconButton aria-label='Menu Icon'>
-                <MoreVert className={classes.menuIcon} />
-              </IconButton>
-            }
-            title= {t('weekly_sales')}
-            subheader={t('week_of')}
-          />
-          <CardContent>
-            <div>
-              <Legend data={legend} />
-            </div>
-            <div className={classes.containerSmall} aria-label='bar chart of weekly sales'>
-              <BarChart
-                aria-label='bar chart of weekly sales'
-                alt='bar chart of weekly sales'
-                role='group'
-                data={wlbData}
-                keys={keys}
-                colors={{ scheme: 'pastel2' }}
-                tickValues={tickValues()}
-                index={"Day"}
-                groupMode={"stacked"}
-                layout={"vertical"}
-                colorBy={function (e) {
-                  const t = e.id;
-                  return e.data["".concat(t, "Color")];
-                }}
-              />
-            </div>
-            <div className={classes.info}>
-              <List>
-              <ListItem>
-                <ListItemIcon>
-                  <InfoIcon/>
-                </ListItemIcon>
-                <ListItemText>{message}</ListItemText>
-              </ListItem>
-              </List>
-              
-            </div>
-          </CardContent>
-        </Card>
-        </Media>
-        <Media greaterThanOrEqual='md'>
-        <Card className={classes.card} >
-          <CardHeader
-            classes={{
-              title: classes.title,
-              subheader: classes.subheader
-            }}
-            avatar={
-              <Avatar aria-label={t('weekly_sales')} className={classes.avatar}>
-                <EventAvailableTwoTone color='primary' />
-              </Avatar>
-            }
-            action={
-              <IconButton aria-label='Menu Icon'>
-                <MoreVert className={classes.menuIcon} />
-              </IconButton>
-            }
-            title= {t('weekly_sales')}
-            subheader={t('week_of')}
-          />
-          <CardContent>
-            <div>
-              <Legend data={legend} />
-            </div>
-            <div className={classes.container} aria-label='bar chart of weekly sales'>
-              <BarChart
-                aria-label='bar chart of weekly sales'
-                alt='bar chart of weekly sales'
-                role='group'
-                colors={{ scheme: 'pastel2' }}
-                data={wlbData}
-                keys={keys}
-                tickValues={tickValues()}
-                index={"Day"}
-                groupMode={"stacked"}
-                layout={"vertical"}
-                colorBy={function (e) {
-                  const t = e.id;
-                  return e.data["".concat(t, "Color")];
-                }}
-              />
-            </div>
-            <div className={classes.info}>
-              <List>
-              <ListItem>
-                <ListItemIcon>
-                  <InfoIcon/>
-                </ListItemIcon>
-                <ListItemText>{message}</ListItemText>
-              </ListItem>
-              </List>
-              
-            </div>
-          </CardContent>
-        </Card>
-
-        </Media>
-       
-        </MediaContextProvider>
       </React.Fragment>
     );
   }
