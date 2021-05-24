@@ -509,11 +509,11 @@ function MyApp({ Component, pageProps }: AppProps) {
                 </Drawer>
                 {darkState ? <Link href="/search" passHref>
                   <ButtonBase>
-                  <img src='/logo.svg' alt='Logo' height={36} width={94}/>
+                  <img src='/opayo.svg' alt='Logo' height={36} width={94}/>
                   </ButtonBase>
                 </Link> : <Link href="/search" passHref>
                   <ButtonBase>
-                  <img src='/logo_dark.svg' alt='Logo' height={36} width={94}/>
+                  <img src='/opayo_dark.svg' alt='Logo' height={36} width={94}/>
                   </ButtonBase>
                 </Link>}
                 <div className={classes.grow} />
