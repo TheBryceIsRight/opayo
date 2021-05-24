@@ -26,8 +26,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Image from 'next/image';
 import ThemeContext from '../../components/Theme';
-import {lightTheme} from '../../components/Theme';
-import {darkTheme} from '../../components/Theme';
+import { lightTheme } from '../../components/Theme';
+import { darkTheme } from '../../components/Theme';
 
 
 //Random String Generator
@@ -98,8 +98,8 @@ interface Values {
       label: 'Tali Scott',
     },
     {
-      value: 'Rik Blakow',
-      label: 'Rik Blakow',
+      value: 'Rik Blacow',
+      label: 'Rik Blacow',
     },
   ];
 
@@ -201,7 +201,7 @@ export default function Take_a_payment() {
             <Typography variant='h3'>Take a Payment</Typography>
             </Grid>
             <Grid item>
-              <Card style={{backgroundColor:theme.palette.secondary.main}}>
+              <Card style={{backgroundColor:theme.palette.nuetral.main}} elevation={5}>
                 <CardContent>
                 <Grid container spacing={5} direction='column'  alignItems='flex-start' justify='flex-start'>
                       <Grid item>
@@ -256,6 +256,48 @@ export default function Take_a_payment() {
                         </MuiTextField>
                         </Grid>
                         <Grid item>
+                            <MuiTextField
+                            type="text"
+                            name="payment"
+                            label='Payment Method'
+                            select
+                            variant="outlined"
+                            margin="normal"
+                            value= {items.method}
+                            onChange= {handleChange('method')}
+                            InputLabelProps={{
+                            shrink: true,
+                            }}
+                        >
+                            {ranges1.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                            </MenuItem>
+                            ))}
+                        </MuiTextField>
+                        </Grid>
+                        <Grid item>
+                            <MuiTextField
+                                type="text"
+                                name="payment_method"
+                                label='Payment Method'
+                                select
+                                variant="outlined"
+                                margin="normal"
+                                value= {items.payment}
+                                onChange= {handleChange('payment')}
+                                InputLabelProps={{
+                                shrink: true,
+                                }}
+                            >
+                                {ranges4.map(option => (
+                                <MenuItem key={option.value} value={option.value}>
+                                    {option.label}
+                                </MenuItem>
+                                ))}
+                        </MuiTextField>
+                        </Grid>
+                        <Grid item>
                         <MuiTextField
                             type="text"
                             name="select"
@@ -285,27 +327,7 @@ export default function Take_a_payment() {
                             onChange= {handleChange('ref')}
                         />
                         </Grid>
-                        <Grid item>
-                            <MuiTextField
-                            type="text"
-                            name="payment"
-                            label='Payment Method'
-                            select
-                            variant="outlined"
-                            margin="normal"
-                            value= {items.method}
-                            onChange= {handleChange('method')}
-                            InputLabelProps={{
-                            shrink: true,
-                            }}
-                        >
-                            {ranges1.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
-                                {option.label}
-                            </MenuItem>
-                            ))}
-                        </MuiTextField>
-                        </Grid>
+                        
                         <Grid item>
                             <MuiTextField
                             type="text"
@@ -327,27 +349,7 @@ export default function Take_a_payment() {
                             ))}
                         </MuiTextField>
                         </Grid>
-                        <Grid item>
-                            <MuiTextField
-                                type="text"
-                                name="payment_method"
-                                label='Payment Method'
-                                select
-                                variant="outlined"
-                                margin="normal"
-                                value= {items.payment}
-                                onChange= {handleChange('payment')}
-                                InputLabelProps={{
-                                shrink: true,
-                                }}
-                            >
-                                {ranges4.map(option => (
-                                <MenuItem key={option.value} value={option.value}>
-                                    {option.label}
-                                </MenuItem>
-                                ))}
-                        </MuiTextField>
-                        </Grid>
+
                         <Grid item>
                             <MuiTextField
                                 type="text"
@@ -399,6 +401,16 @@ export default function Take_a_payment() {
                             />
                             <MuiTextField
                                 type="hidden"
+                                name="payment_method"
+                                margin="normal"
+                                value= {items.payment}
+                                onChange= {handleChange('payment')}
+                                InputLabelProps={{
+                                shrink: true,
+                                }}
+                            />
+                            <MuiTextField
+                                type="hidden"
                                 name="currency"
                                 value={items.currency}
                                 margin="normal"
@@ -438,16 +450,7 @@ export default function Take_a_payment() {
                                 shrink: true,
                                 }}
                             />
-                            <MuiTextField
-                                type="hidden"
-                                name="payment_method"
-                                margin="normal"
-                                value= {items.payment}
-                                onChange= {handleChange('payment')}
-                                InputLabelProps={{
-                                shrink: true,
-                                }}
-                            />
+  
                             <MuiTextField
                                 type="hidden"
                                 name="exp_date"
@@ -501,15 +504,6 @@ export default function Take_a_payment() {
                         <Divider/>
                         <ListItem>
                             <ListItemText primary='Card Type' secondary="Credit Card" />
-                        </ListItem>
-                        <ListItem>
-                            <ListItemText primary='1234-4567-1568' secondary= {items.payment}/>
-                        </ListItem>
-                        <ListItem>
-                            <ListItemText primary='Expires' secondary='02/02/2022' />
-                        </ListItem>
-                        <ListItem>
-                            <ListItemText primary='Issuer Name' secondary='U.S. Bank' />
                         </ListItem>
                         <ListItem>
                             <ListItemText primary='Issuer Country' secondary= 'United States' />

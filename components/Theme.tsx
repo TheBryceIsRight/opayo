@@ -32,17 +32,16 @@ const dark = createMuiTheme({
       },
       secondary: {
         main: '#C9F7EC',
-        
       },
       error: {
         main: red.A400,
       },
       nuetral: {
-        main: '#F2F4F2',
+        main: '#E5E7E5', //Nuetral 200
       },
       background: {
-        default: '#004D60',
-        paper: '#002E42',
+        default: '#0C2074', //800
+        paper: '#070F45', //900
       },
     
     },
@@ -60,16 +59,16 @@ const light = createMuiTheme({
     palette: {
         type: 'light',
         primary: {
-          main: '#004D60',
+          main: '#0C2074', //Blue 800
         },
         secondary: {
-          main: '#007079',
+          main: '#007079', 
         },
         error: {
           main: red.A400,
         },
         nuetral: {
-          main: '#BCBCBA',
+          main: '#1D1E1F', //Nuetral 900
         },
         background: {
           default: '#FFF',
